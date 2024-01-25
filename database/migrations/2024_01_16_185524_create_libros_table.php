@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('portada',300)->nullable();
             $table->boolean('disponibilidad')->nullable()->default(true);
             $table->unsignedBigInteger('asignatura_id');
+            $table->smallInteger('stock');
             $table->foreign('asignatura_id')->references('id')->on('asignaturas');
             //$table->timestamps();
         });

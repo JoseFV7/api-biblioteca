@@ -63,4 +63,19 @@ class AuthController extends Controller
             'message' => "Te has deslogeado"
         ];
     }
+
+    public function yo(Request $request)
+{
+    try {
+        $user = $request->user();
+        
+        if ($user) {
+            return response()->json(['user' => $user], 200);
+        } else {
+            return response()->json(['error' => 'No hay usuario autenticado'], 401);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
 }

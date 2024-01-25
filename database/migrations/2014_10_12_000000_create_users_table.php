@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('apellido',50);
             $table->string('codigo', 10);
             $table->integer('dni')->unique();
-            $table->integer('edad');
             $table->string('rol');
             $table->string('password');
             $table->rememberToken();

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Asignaturas;
 class Libros extends Model
 {
     use HasFactory;
@@ -22,6 +22,6 @@ class Libros extends Model
 
     public function asignatura_libro()
     {
-        return $this->hasOne(Asignatura::class, 'id', 'asignatura_id');
+        return $this->hasOne(Asignaturas::class, 'id', 'asignatura_id');
     }
 }

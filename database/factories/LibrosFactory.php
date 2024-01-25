@@ -25,6 +25,7 @@ class LibrosFactory extends Factory
             'mueble' => $this -> faker -> regexify('[A-Z]{1}[0-9]{2}'),
             'observacion' => $this -> faker -> randomKey(['C' => 1, 'O' => 2]),
             'disponibilidad' => $this -> faker -> boolean(),
+            'stock' => $this -> faker -> randomNumber(1, true),
             'asignatura_id' => Asignaturas::inRandomOrder()->first()->id,
         ];
     }
