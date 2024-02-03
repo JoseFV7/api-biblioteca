@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('entregas', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_entrega');
-            $table->date('fecha_devolucion');
+            $table->date('fecha_entrega')->nullable();
+            $table->date('fecha_devolucion')->nullable();
             $table->string('estado', 15);
             $table->unsignedBigInteger('reserva_id');
             $table->foreign('reserva_id')->references('id')->on('reservas');

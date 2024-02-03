@@ -42,6 +42,7 @@ Route::post('/asignaturas_eliminar', [AsignaturasController::class, 'api_asignat
 
 // Admin - Custom Route
 Route::get('/libros_admin', [LibrosController::class, 'api_libros_admin']); //Sin paginacion
+Route::get('/usuarios', [UsuariosController::class, 'usuarios']);
 
 // Libros
 Route::get('/libros', [LibrosController::class, 'api_libros']);
@@ -50,11 +51,18 @@ Route::post('/libros_crear', [LibrosController::class, 'api_libros_crear']);
 Route::post('/libros_editar', [LibrosController::class, 'api_libros_editar']);
 Route::post('/libros_eliminar', [LibrosController::class, 'api_libros_eliminar']);
 Route::post('/libros_portada', [LibrosController::class, 'api_libros_portada']);
+Route::post('/libros_busqueda', [LibrosController::class, 'api_libros_busqueda']);
 
 // Rutas de Reservas
 Route::get('/reservas', [ReservasController::class,'api_reservas']);
 Route::post('/reservas_crear', [ReservasController::class,'api_reservas_crear']);
-Route::post('/reservas_desicion', [ReservasController::class,'api_reservas_decidir']);
+Route::post('/reservas_decision', [ReservasController::class,'api_reservas_decidir']);
+Route::post('/reservas_crear_ahora', [ReservasController::class,'api_reservas_ahora']);
 
 // Rutas de Entrega
 Route::get('/entregas', [EntregasController::class,'api_entregas']);
+Route::get('/entregas/no_entregados', [EntregasController::class,'api_entregas_no_entregados']);
+Route::get('/entregas/entregados', [EntregasController::class,'api_entregas_entregados']);
+Route::post('/entregas_decision', [EntregasController::class,'api_entregas_decision']);
+Route::get('/entregas/concluidos', [EntregasController::class,'api_entregas_concluidos']);
+Route::post('/entregas_concluir', [EntregasController::class,'api_entregas_concluir']);

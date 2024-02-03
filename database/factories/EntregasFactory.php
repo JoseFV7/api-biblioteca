@@ -21,7 +21,7 @@ class EntregasFactory extends Factory
             'fecha_entrega' => $this -> faker -> date(),
             'fecha_devolucion' => $this -> faker -> date(),
             'estado' => $this -> faker -> randomKey([
-                'No entregado' => 1, 'Entregado' => 2, 'Devuelto' => 3
+                'No entregado' => 1, 'Entregado' => 2, 'Concluido' => 3, 'Cancelado' => 4
             ]),
             'reserva_id' => Reservas::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id,

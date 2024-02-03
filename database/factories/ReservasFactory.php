@@ -22,7 +22,8 @@ class ReservasFactory extends Factory
             'alumno_id' => User::inRandomOrder()->first()->id,
             'libro_id' => Libros::inRandomOrder()->first()->id,
             'estado' => $this -> faker -> randomKey([
-                'Pendiente' => 1, 'Aprobado' => 2, 'Rechazado' => 3
+                'Pendiente' => 1,
+                // 'Pendiente' => 1, 'Aprobado' => 2, 'Rechazado' => 3
             ]),
             'dias_prestamo' => fake()->randomNumber(1,true),
         ];

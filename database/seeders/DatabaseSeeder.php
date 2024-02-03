@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         Asignaturas::factory(10)->create();
         Libros::factory(20)->create();
-        User::factory(5)->create();
-        Reservas::factory(10)->create();
-        Entregas::factory(20)->create();
+        User::factory(50)->create();
+        Reservas::factory(30)->create();
+        Entregas::factory(30)->create();
     }
 }

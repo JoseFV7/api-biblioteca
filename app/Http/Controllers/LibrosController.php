@@ -33,6 +33,15 @@ class LibrosController extends Controller
         return response()->json($libros);
     }
 
+    public function api_libros_busqueda(Request $request) {
+        $search = $request->search;
+        $filtro = $request->filtro;
+        $libros = Libros::where($filtro, 'like' , '%'.$search.'%')
+            ->orWhere($filtro, 'like' , '%'.ucfirst($search).'%')
+            ->get();
+        return response()->json($libros);
+    }
+
     public function api_libros_filter($asignatura_id) {
         $libros = Libros::where('asignatura_id', $asignatura_id)->paginate(2);
         return response()->json($libros);
