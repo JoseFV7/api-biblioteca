@@ -8,6 +8,8 @@ use App\Models\Entregas;
 use App\Models\Libros;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReservasEstado;
+use Illuminate\Notifications\Notification;
 
 class ReservasController extends Controller
 {
@@ -67,8 +69,20 @@ class ReservasController extends Controller
             $entrega->estado = 'No entregado';
             $reserva->estado = 'Aceptado';
             $entrega->save();
+            $usuario = User::find($reserva->alumno_id);
+            $notificacion = [
+                'estado' => 'Aceptado',
+                'texto' => 'Se aprobo su reserva'
+            ];
+            $usuario->notify(new ReservasEstado($notificacion));
         } else {
             $reserva->estado = 'Rechazado';
+            $notificacion = [
+                'estado' => 'Rechazado',
+                'texto' => 'Se rechazo su solicitud'
+            ];
+            $usuario = User::find($reserva->alumno_id);
+            $usuario->notify(new ReservasEstado($notificacion));
         }
         $reserva->save();
     }
@@ -91,5 +105,13 @@ class ReservasController extends Controller
         $entrega->demora = 0;
         $entrega->estado = 'Entregado';
         $entrega->save();
+    }
+
+    function notificaciones(){
+        $alumnos = User::all();
+        foreach ($alumnos as $alumno){
+            $alumno->notificacion = $alumno->readNotifications;
+        }
+        return response()->json($alumnos);
     }
 }

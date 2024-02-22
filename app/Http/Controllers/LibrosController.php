@@ -7,6 +7,7 @@ use App\Models\Libros;
 use App\Models\Asignaturas;
 use App\Models\Reservas;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Storage;
 
 class LibrosController extends Controller
 {
@@ -38,6 +39,7 @@ class LibrosController extends Controller
         $filtro = $request->filtro;
         $libros = Libros::where($filtro, 'like' , '%'.$search.'%')
             ->orWhere($filtro, 'like' , '%'.ucfirst($search).'%')
+            ->take(5)
             ->get();
         return response()->json($libros);
     }
@@ -58,10 +60,17 @@ class LibrosController extends Controller
         $libros->observacion = $request->observacion;
         $libros->disponibilidad = $request->disponibilidad;
         $libros->asignatura_id = $request->asignatura_id;
+        //Subir a Cloudinary
+        // if ($request->hasFile('portada')) {
+        //     $image = $request->file('portada');
+        //     $url = Cloudinary::upload($image->getRealPath(),['folder'=> 'Portadas', 'format' => 'webp']);
+        //     $libros->portada = $url->getSecurePath();
+        // } else {
+        //     $libros->portada = null;
+        // }
         if ($request->hasFile('portada')) {
             $image = $request->file('portada');
-            $url = Cloudinary::upload($image->getRealPath(),['folder'=> 'Portadas', 'format' => 'webp']);
-            $libros->portada = $url->getSecurePath();
+            Storage::disk('public')->putFile('Libros', $image);
         } else {
             $libros->portada = null;
         }
@@ -80,13 +89,10 @@ class LibrosController extends Controller
         $libros->disponibilidad = $request->disponibilidad;
         $libros->asignatura_id = $request->asignatura_id;
         if ($request->hasFile('portada')) {
-            $image = $request->file('portada');
-            $url = Cloudinary::upload($image->getRealPath(),['folder'=> 'Portadas', 'format' => 'webp']);
-            $libros->portada = $url->getSecurePath();
+            $imagen_nombre = 'Portada.'.$request->file('portada')->getClientOriginalExtension();
+            $request->file('portada')->move(public_path('Libros'), $imagen_nombre);
+            //Convertir a webp - Recordatorio
         } 
-        // else {
-        //     $libros->portada = null;
-        // }
         $libros->save();
         return response()->json(["message"=> "Mensaje enviado"],200);
     }

@@ -6,11 +6,11 @@ use App\Models\Asignaturas;
 use App\Models\Libros;
 use App\Models\Reservas;
 use Illuminate\Http\Request;
+use App\Events\AsignaturasUpdate;
 class AsignaturasController extends Controller
 {
-    public function api_asignaturas(Request $request){
+    public function api_asignaturas(){
         $asignaturas = Asignaturas::orderBy('id', 'ASC')->get();
-        $request->headers->set('ngrok-skip-browser-warning', '1234');        
         return response()->json($asignaturas);
     }
 

@@ -9,7 +9,8 @@ use App\Http\Controllers\ReservasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EntregasController;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Broadcasting\BroadcastManager;
+use Illuminate\Broadcasting\Channel;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -66,3 +67,7 @@ Route::get('/entregas/entregados', [EntregasController::class,'api_entregas_entr
 Route::post('/entregas_decision', [EntregasController::class,'api_entregas_decision']);
 Route::get('/entregas/concluidos', [EntregasController::class,'api_entregas_concluidos']);
 Route::post('/entregas_concluir', [EntregasController::class,'api_entregas_concluir']);
+
+Route::get('/notifications', function () {
+    return view('notifications');
+});
